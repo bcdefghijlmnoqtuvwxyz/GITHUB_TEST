@@ -1,0 +1,53 @@
+#include "Cpu.h"
+
+#define PTC15 15
+#define PTC16 16
+
+void WDOG_disable (void) {
+	WDOG->CNT=0xD928C520;
+	WDOG->TOVAL=0x0000FFFF;
+    WDOG->CS = 0x00002100;
+}
+
+/* User includes (#include below this line is not maintained by Processor Expert) */
+
+/*!
+  \brief The main function for the project.
+  \details The startup initialization sequence is the following:
+ * - startup asm routine
+ * - main()
+*/
+int main(void)
+{
+  /* Write your local variable definition here */
+	WDOG_disable();
+
+	PCC-> PCCn[PCC_PORTC_INDEX] = PCC_PCCn_CGC_MASK;
+
+	PTC->PDDR |= 1<<PTC15;
+	PORTC->PCR[15] = 0x0000110;
+
+	PTC->PDDR |= 1<<PTC16;
+	PORTC->PCR[16] = 0x0000110;
+
+	PTC->PSOR |= 1<<PTC15;
+	PTC->PSOR |= 1<<PTC16;
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+} /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
+
+/* END main */
+/*!
+** @}
+*/
+/*
+** ###################################################################
+**
+**     This file was created by Processor Expert 10.1 [05.21]
+**     for the Freescale S32K series of microcontrollers.
+**
+** ###################################################################
+*/
