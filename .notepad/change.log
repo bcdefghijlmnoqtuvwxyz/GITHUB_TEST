@@ -5,7 +5,7 @@
 
 void WDOG_disable (void) {
 	WDOG->CNT=0xD928C520;
-	WDOG->TOVAL=0x0000FFFF;
+	WDOG->TOVAL=0x0000FFFF;//
     WDOG->CS = 0x00002100;
 }
 
